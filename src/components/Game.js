@@ -3,7 +3,9 @@ import React, { useEffect } from 'react';
 const Game = (props) => {
 
   const handleClick = (e) => {
-    const cardToken = +e.target.textContent;
+    console.log(e.target.lastChild);
+    console.log(props.tokens)
+    const cardToken = e.target.src;
     props.setClickedTokens([...props.clickedTokens, cardToken]);
     console.log(props.clickedTokens)
 
@@ -36,12 +38,17 @@ const Game = (props) => {
     <div className="game-div">
       { console.log('Game render') }
       {
-        props.tokens.map( (token) => <div
-          className="game-card"
-          onClick={handleClick}>
-            <p>{token}</p>
-          </div>
-        )
+        props.tokens.map( (token, index) => {
+          return (
+            <div
+              key={index}
+              className="game-card">
+              <img
+                src={token}
+                onClick={handleClick} />
+            </div>
+          );
+        })
       }
     </div>
   )
