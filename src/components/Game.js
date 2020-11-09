@@ -3,14 +3,13 @@ import React, { useEffect } from 'react';
 const Game = (props) => {
 
   const handleClick = (e) => {
-    console.log(e.target.lastChild);
-    console.log(props.tokens)
     const cardToken = e.target.src;
     props.setClickedTokens([...props.clickedTokens, cardToken]);
-    console.log(props.clickedTokens)
 
     if (props.clickedTokens.includes(cardToken)) {
-      props.setHighScore(props.currentScore);
+      if (props.currentScore > props.highScore) {
+        props.setHighScore(props.currentScore);
+      }
       props.setCurrentScore(0);
       props.setClickedTokens([]);
     } else {
@@ -18,7 +17,9 @@ const Game = (props) => {
     }
   }
 
-  useEffect( () => {
+  // Commented out for future difficulty feature to be added
+  // Randomization is handled in App.js
+  /* useEffect( () => {
     console.log('Game update');
     const shuffleTokens = (tokens) => {
       const arr = tokens.slice();
@@ -32,7 +33,7 @@ const Game = (props) => {
     const shuffled = shuffleTokens(props.tokens);
     props.setTokens(shuffled);
 
-  }, [props.clickedTokens]);
+  }, [props.clickedTokens]); */
 
   return (
     <div className="game-div">

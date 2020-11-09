@@ -6,8 +6,8 @@ const Header = (props) => {
       <div className="header-div">
         { console.log('Header Render') }
         <h1 className="page-title">Pokemon Memory Game</h1>
-        <p className="current-score">Current Score: {props.currentScore}</p>
-        <p className="high-score">High Score: {props.highScore}</p>
+        <p className="current-score">Current Score: {props.currentScore}/20</p>
+        <p className="high-score">High Score: {props.highScore}/20</p>
       </div>
       <div className="instructions">Don't choose the same Pokemon twice!</div>
     </div>
