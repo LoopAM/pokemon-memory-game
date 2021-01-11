@@ -51,7 +51,6 @@ const App = () => {
 
   return (
     <div className="app-div">
-      { console.log('App render')}
       <Header
         currentScore={currentScore}
         highScore={highScore}

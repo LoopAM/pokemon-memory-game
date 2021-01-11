@@ -1,53 +1,39 @@
 import React, { useEffect } from 'react';
+import Card from './Card';
 
 const Game = (props) => {
 
   const handleClick = (e) => {
-    const cardToken = e.target.src;
-    props.setClickedTokens([...props.clickedTokens, cardToken]);
+    const clickedToken = e.target.children[0].src;
 
-    if (props.clickedTokens.includes(cardToken)) {
-      if (props.currentScore > props.highScore) {
-        props.setHighScore(props.currentScore);
-      }
+    if (props.clickedTokens.includes(clickedToken)) {
       props.setCurrentScore(0);
       props.setClickedTokens([]);
     } else {
+      if (props.highScore <= props.currentScore) {
+        props.setHighScore(props.highScore + 1);
+      }
       props.setCurrentScore(props.currentScore + 1);
+
+      props.setClickedTokens([...props.clickedTokens, clickedToken]);
+    }
+
+    if (props.highScore === 20) {
+      const text = document.getElementById('instructions');
+      text.textContent = 'You got them all! Good job!'
     }
   }
 
-  // Commented out for future difficulty feature to be added
-  // Randomization is handled in App.js
-  /* useEffect( () => {
-    console.log('Game update');
-    const shuffleTokens = (tokens) => {
-      const arr = tokens.slice();
-      for (let i = arr.length - 1; i > 0; i -= 1) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [ arr[i], arr[j] ] = [ arr[j], arr[i] ];
-      }
-      return arr;
-    }
-
-    const shuffled = shuffleTokens(props.tokens);
-    props.setTokens(shuffled);
-
-  }, [props.clickedTokens]); */
-
   return (
     <div className="game-div">
-      { console.log('Game render') }
       {
-        props.tokens.map( (token, index) => {
+        props.tokens.map( token => {
           return (
-            <div
-              key={index}
-              className="game-card">
-              <img
-                src={token}
-                onClick={handleClick} />
-            </div>
+            <Card
+              key={token}
+              token={token}
+              handleClick={handleClick}
+            />
           );
         })
       }
